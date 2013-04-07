@@ -28,7 +28,7 @@ th {
 }
 .result {
 	background: {
-		image: image("images/no-image");
+		image: image("no-image");
 		position: 1em center;
 		repeat: no-repeat;
 		color: transparent;
@@ -37,106 +37,106 @@ th {
 
 //basic
 #basic {
-	background-image: image("images/image");
+	background-image: image("image");
 }
 #basic-path {
 	background: none;
 	&:after {
-		content: image("images/image", true);
+		content: image("image", true);
 	}
 }
 #basic-empty {
 	background-image: image();
 }
 #basic-none {
-	background-image: image("images/none");
+	background-image: image("none");
 }
 #basic-none-ext {
-	background-image: image("images/none.png");
+	background-image: image("none.png");
 }
 #basic-png {
-	background-image: image("images/image.png");
+	background-image: image("image.png");
 }
 #basic-jpg {
-	background-image: image("images/image.jpg");
+	background-image: image("image.jpg");
 }
 #basic-jpeg {
-	background-image: image("images/image.jpeg");
+	background-image: image("image.jpeg");
 }
 #basic-gif {
-	background-image: image("images/image.gif");
+	background-image: image("image.gif");
 }
 
 // directory
 #dir-common-only {
-	background-image: image("images/common");
+	background-image: image("common");
 }
 #dir-deployment-only {
-	background-image: image("images/deployment");
+	background-image: image("deployment");
 }
 #dir-both-prefer-common {
-	background-image: image("images/image", false, common);
+	background-image: image("image", false, common);
 }
 #dir-common-only-prefer-common {
-	background-image: image("images/common", false, common);
+	background-image: image("common", false, common);
 }
 #dir-deployment-only-prefer-common {
-	background-image: image("images/deployment", false, common);
+	background-image: image("deployment", false, common);
 }
 #dir-both-prefer-deploy {
-	background-image: image("images/image", false, deployment);
+	background-image: image("image", false, deployment);
 }
 #dir-common-only-prefer-deploy {
-	background-image: image("images/common", false, deployment);
+	background-image: image("common", false, deployment);
 }
 #dir-deployment-only-prefer-deploy {
-	background-image: image("images/deployment", false, deployment);
+	background-image: image("deployment", false, deployment);
 }
 
 // extension
 #ext-no-ext {
-	background-image: image("images/image");
+	background-image: image("image");
 }
 #ext-no-png {
-	background-image: image("images/no-png");
+	background-image: image("no-png");
 }
 #ext-no-png-jpg {
-	background-image: image("images/no-png-jpg");
+	background-image: image("no-png-jpg");
 }
 #ext-no-png-jpg-jpeg {
-	background-image: image("images/no-png-jpg-jpeg");
+	background-image: image("no-png-jpg-jpeg");
 }
 #ext-no-png-jpg-jpeg-gif {
-	background-image: image("images/no-png-jpg-jpeg-gif");
+	background-image: image("no-png-jpg-jpeg-gif");
 }
 
 
 #ext-png-no-png {
-	background-image: image("images/no-png.png");
+	background-image: image("no-png.png");
 }
 #ext-jpg-no-jpg {
-	background-image: image("images/jpg-no-jpg.jpg");
+	background-image: image("jpg-no-jpg.jpg");
 }
 #ext-jpeg-no-jpeg {
-	background-image: image("images/jpeg-no-jpeg.jpeg");
+	background-image: image("jpeg-no-jpeg.jpeg");
 }
 #ext-jpg-no-jpg-jpeg {
-	background-image: image("images/jpg-no-jpg-jpeg.jpg");
+	background-image: image("jpg-no-jpg-jpeg.jpg");
 }
 #ext-gif-no-gif {
-	background-image: image("images/gif-no-gif.gif");
+	background-image: image("gif-no-gif.gif");
 }
 
 
 #ext-png-common-jpg-deploy {
-	background-image: image("images/png-common-jpg-deploy");
+	background-image: image("png-common-jpg-deploy");
 }
 #ext-png-png-common-jpg-deploy {
-	background-image: image("images/png-common-jpg-deploy.png");
+	background-image: image("png-common-jpg-deploy.png");
 }
 #ext-jpg-jpeg-common-png-deploy {
-	background-image: image("images/jpeg-common-png-deploy.jpg");
+	background-image: image("jpeg-common-png-deploy.jpg");
 }
 #ext-jpeg-png-common-jpg-deploy {
-	background-image: image("images/png-common-jpg-deploy.jpeg", false, common);
+	background-image: image("png-common-jpg-deploy.jpeg", false, common);
 }
