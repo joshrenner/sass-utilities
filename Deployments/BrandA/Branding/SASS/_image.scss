@@ -1,0 +1,167 @@
+/*
+	// constants
+	$image-common-directory : (string) relative path to common assets
+	$image-deployment-directory : (string) relative path to deployment assets
+		* defaults to function defined in config.rb that returns deployment path defined there
+
+	// functions
+	image($img, [$only-path], [$prefer-common])
+	* img : (string) the image to use, include the relative path from either 'Branding' folder
+	* only-path : (bool) passing a true value will return the path string instead of a url() function
+	* prefer-common : (bool) passing a true value will an available common image, even if a deployment version exists
+
+	// description
+	Returns a url function or path to an image to where it exists. 
+	Selects the image from the deployment if it exists, otherwise selects from the common directory if it exists.
+	Warns when image does not exist.
+	Selects extension of image if none is provided
+*/
+
+// IMAGE - PUBLIC PROPERTIES
+$image-common-directory: "Common/Branding" !default;
+$image-deployment-directory: deployment() !default; 
+$image-extensions: (gif jpeg jpg png) !default;
+$image-directory-preference: deployment !default;
+
+
+// IMAGE - PUBLIC FUNCTION
+@function image($img: null, $only-path: false, $prefer: $image-directory-preference) {
+	$only-path: if($only-path == true, true, false);
+	$file: null;
+	@if $img != null {
+		$file: image-directory-strategy($img, $prefer);
+		@if $file != null {
+			$file: if($only-path, $file, url($file));
+		}
+		@else {
+			@warn "Image '#{$img}' could not be found";
+		}
+	}
+	@else {
+		@warn "Image missing img argument";
+	}
+	@return $file;
+}
+
+
+// IMAGE - PRIVATE FUNCTIONS
+// STRATEGIES
+@function image-directory-strategy($img, $prefer) {
+	// selects the directory of image
+	$prefer-common: if($prefer == common, true, false);
+	$prefer-deployment: if($prefer == deployment, true, false);
+	$target-extension: if(has_extension($img), image-extension-normalize(get_extension($img)), false);
+	$deployment: image-deployment-file($img);
+	$common: image-common-file($img);
+	$deployment-extension: image-extension-normalize(get_extension($deployment));
+	$common-extension: image-extension-normalize(get_extension($common));
+	$file: null;
+	@if $prefer-common {
+		@if not($common) {
+			@warn "Image tried to 'prefer-common', but could not be found";
+			$prefer-common: false;
+			$prefer-deployment: true;
+		}
+		@else if $target-extension and $common-extension != $target-extension and $deployment-extension == $target-extension {
+			@warn "Image tried to 'prefer-common', but found better extension fit in deployment";
+			$prefer-common: false;
+			$prefer-deployment: true;
+		}
+		@else if $common {
+			$file: $common;
+		}
+	}
+	@if $prefer-deployment {
+		@if not($deployment) {
+			@warn "Image tried to 'prefer-deployment', but could not be found";
+			$prefer-deployment: false;
+			$prefer-common: true;
+		}
+		@else if $target-extension and $deployment-extension != $target-extension and $common-extension == $target-extension {
+			@warn "Image tried to 'prefer-deployment', but found better extension fit in common";
+			$prefer-deployment: false;
+			$prefer-common: true;
+		}
+		@else if $deployment {
+			$file: $deployment;
+		}
+	}
+	@if $deployment and not($prefer-common) {
+		$file: $deployment;
+	}
+	@else if $common and not($prefer-deployment) {
+		$file: $common;
+	}
+	@return $file;
+}
+@function image-file-strategy($url, $img) {
+	// selects file to use
+	$candidate: image-url(quote($url + "/" + $img), true, false);
+	$target-extension: null;
+	$file: null;
+	@if has_extension($candidate) {
+		@if file_exists($candidate) {
+			$file: $candidate;			
+		}
+		@else {
+			$target-extension: get_extension($candidate);
+			$candidate: strip_extension($candidate);
+		}
+	}
+	@if not(has_extension($candidate)) {
+		$exts: image-extensions-available($candidate);
+		$ext: image-extension-strategy($exts, $target-extension);
+		@if $exts and $ext {
+			$file: quote($candidate + "." + $ext);
+		}
+	}
+	@return $file;
+}
+@function image-extension-strategy($extensions, $target: null) {
+	// takes list of extensions, target extension
+	// returns extension to use
+	$extension: null;
+	$jpg: null;
+	$png: null;
+	$gif: null;
+	@each $ext in $extensions {
+		@if $ext == png { $png: $ext; }
+		@else if image-extension-is-jpg($ext) { $jpg: $ext; }
+		@else if $ext == gif { $gif: $ext; }
+	}
+	@if image-extension-is-jpg($target) and $jpg { $extension: $jpg; }
+	@else if $png { $extension: $png; }
+	@else if $jpg { $extension: $jpg; }
+	@else if $gif { $extension: $gif; }
+	@return $extension;
+}
+
+// DIRECTORY
+@function image-deployment-file($img) {
+	$dir: $image-deployment-directory;
+	@return image-file-strategy($dir, $img);
+}
+@function image-common-file($img) {
+	$dir: $image-common-directory;
+	@return image-file-strategy($dir, $img);
+}
+
+// EXTENSIONS
+@function image-extensions-available($url) {
+	// takes image url
+	// returns extensions aviable for image
+	$extensions: ();
+	@each $ext in $image-extensions {
+		$candidate: quote($url + "." + $ext);
+		@if file_exists($candidate) {
+			$extensions: append($extensions, $ext);
+		}
+	}
+	@return if(length($extensions) < 1, null, $extensions);
+}
+@function image-extension-is-jpg($ext) {
+	@return if($ext == jpg or $ext == jpeg, true, false);
+}
+@function image-extension-normalize($ext) {
+	@return if(image-extension-is-jpg($ext), jpg, $ext);
+}

@@ -1,0 +1,188 @@
+<html>
+<head>
+	<title>Image function test</title>
+	<link rel="stylesheet" href="deployments/c21aff/branding/screen.css" type="text/css" />
+</head>
+<body>
+	<table>
+		<tr>
+			<th colspan="3">Basic file selection</th>
+		</tr>
+		<tr>
+			<td class="label">No extension</td>
+			<td id="basic" class="result"></td>
+			<td class="expected">Deployment PNG</td>
+		</tr>
+		<tr>
+			<td class="label">PNG extension</td>
+			<td id="basic-png" class="result"></td>
+			<td class="expected">Deployment PNG</td>
+		</tr>
+		<tr>
+			<td class="label">GIF extension</td>
+			<td id="basic-gif" class="result"></td>
+			<td class="expected">Deployment GIF</td>
+		</tr>
+		<tr>
+			<td class="label">JPG extension</td>
+			<td id="basic-jpg" class="result"></td>
+			<td class="expected">Deployment JPG</td>
+		</tr>
+		<tr>
+			<td class="label">JPEG extension</td>
+			<td id="basic-jpeg" class="result"></td>
+			<td class="expected">Deployment JPEG</td>
+		</tr>
+		<tr>
+			<td class="label">No image passed</td>
+			<td id="basic-empty" class="result"></td>
+			<td class="expected">No Image</td>
+		</tr>
+		<tr>
+			<td class="label">No extension, doesn't exist</td>
+			<td id="basic-none" class="result"></td>
+			<td class="expected">No Image</td>
+		</tr>
+		<tr>
+			<td class="label">Extension, doesn't exist</td>
+			<td id="basic-none-ext" class="result"></td>
+			<td class="expected">No Image</td>
+		</tr>
+		<tr>
+			<td class="label">No extension, path only</td>
+			<td id="basic-path" class="result"></td>
+			<td class="expected">/Deployment/C21Aff/Branding/images/image.png</td>
+		</tr>
+
+
+		<tr>
+			<th colspan="3">Directory selection</th>
+		</tr>
+		<tr>
+			<td class="label">Image only in Common</td>
+			<td id="dir-common-only" class="result"></td>
+			<td class="expected">Common PNG</td>
+		</tr>
+		<tr>
+			<td class="label">Image only in Deployment</td>
+			<td id="dir-deployment-only" class="result"></td>
+			<td class="expected">Deployment PNG</td>
+		</tr>
+		<tr>
+			<td class="label">Image in both, prefer common</td>
+			<td id="dir-both-prefer-common" class="result"></td>
+			<td class="expected">Common PNG</td>
+		</tr>
+		<tr>
+			<td class="label">Image only in common, prefer common</td>
+			<td id="dir-common-only-prefer-common" class="result"></td>
+			<td class="expected">Common PNG</td>
+		</tr>
+		<tr>
+			<td class="label">Image only in deployment, prefer common</td>
+			<td id="dir-deployment-only-prefer-common" class="result"></td>
+			<td class="expected">Deployment PNG</td>
+		</tr>
+		<tr>
+			<td class="label">Image in both, prefer deployment</td>
+			<td id="dir-both-prefer-deploy" class="result"></td>
+			<td class="expected">Deployment PNG</td>
+		</tr>
+		<tr>
+			<td class="label">Image only in common, prefer deployment</td>
+			<td id="dir-common-only-prefer-deploy" class="result"></td>
+			<td class="expected">Common PNG</td>
+		</tr>
+		<tr>
+			<td class="label">Image only in deployment, prefer deployment</td>
+			<td id="dir-deployment-only-prefer-deploy" class="result"></td>
+			<td class="expected">Deployment PNG</td>
+		</tr>
+		
+
+		<tr>
+			<th colspan="3">Extension selection order</th>
+		</tr>
+		<tr>
+			<td class="label">No extension</td>
+			<td id="ext-no-ext" class="result"></td>
+			<td class="expected">Deployment PNG</td>
+		</tr>
+		<tr>
+			<td class="label">No extension; No PNG image</td>
+			<td id="ext-no-png" class="result"></td>
+			<td class="expected">Deployment JPG</td>
+		</tr>
+		<tr>
+			<td class="label">No extension; No PNG or JPG image</td>
+			<td id="ext-no-png-jpg" class="result"></td>
+			<td class="expected">Deployment JPEG</td>
+		</tr>
+		<tr>
+			<td class="label">No extension; No PNG, JPG or JPEG image</td>
+			<td id="ext-no-png-jpg-jpeg" class="result"></td>
+			<td class="expected">Deployment GIF</td>
+		</tr>
+		<tr>
+			<td class="label">No extension; No PNG, JPG, JPEG or GIF image</td>
+			<td id="ext-no-png-jpg-jpeg-gif" class="result"></td>
+			<td class="expected">No Image</td>
+		</tr>
+		
+
+		<tr>
+			<th colspan="3">Extension selection alternatives</th>
+		</tr>
+		<tr>
+			<td class="label">PNG extension, no PNG image</td>
+			<td id="ext-png-no-png" class="result"></td>
+			<td class="expected">Deployment JPG</td>
+		</tr>
+		<tr>
+			<td class="label">JPG extension, no JPG image</td>
+			<td id="ext-jpg-no-jpg" class="result"></td>
+			<td class="expected">Deployment JPEG</td>
+		</tr>
+		<tr>
+			<td class="label">JPEG extension, no JPEG image</td>
+			<td id="ext-jpeg-no-jpeg" class="result"></td>
+			<td class="expected">Deployment JPG</td>
+		</tr>
+		<tr>
+			<td class="label">JPG extension, no JPG or JPEG image</td>
+			<td id="ext-jpg-no-jpg-jpeg" class="result"></td>
+			<td class="expected">Deployment PNG</td>
+		</tr>
+		<tr>
+			<td class="label">GIF extension, no GIF image</td>
+			<td id="ext-gif-no-gif" class="result"></td>
+			<td class="expected">Deployment PNG</td>
+		</tr>
+		
+
+		<tr>
+			<th colspan="3">Extension selection alternatives between directories</th>
+		</tr>
+		<tr>
+			<td class="label">No extension - JPG in Deployment, PNG in Common</td>
+			<td id="ext-png-common-jpg-deploy" class="result"></td>
+			<td class="expected">Deployment JPG</td>
+		</tr>
+		<tr>
+			<td class="label">PNG - JPG in Deployment, PNG in Common</td>
+			<td id="ext-png-png-common-jpg-deploy" class="result"></td>
+			<td class="expected">Common PNG</td>
+		</tr>
+		<tr>
+			<td class="label">JPG - PNG in Deployment, JPEG in Common</td>
+			<td id="ext-jpg-jpeg-common-png-deploy" class="result"></td>
+			<td class="expected">Common JPEG</td>
+		</tr>
+		<tr>
+			<td class="label">JPEG - JPG in Deployment, PNG in Common, Prefer Common</td>
+			<td id="ext-jpeg-png-common-jpg-deploy" class="result"></td>
+			<td class="expected">Deployment JPG</td>
+		</tr>
+	</table>
+</body>
+</html>

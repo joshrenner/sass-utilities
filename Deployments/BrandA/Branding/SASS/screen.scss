@@ -1,0 +1,142 @@
+@import "image";
+
+body { 
+	font-family: sans-serif;
+	color: #111;
+}
+td { 
+	padding: 1em; 
+	border: solid #fff;
+	border-width: 4px 0;
+	background: #eee;
+	font-size: 14px;
+}
+th {
+	text-align: left;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 2em 0 1em;
+}
+.label {
+	width: 400px;
+}
+.result,
+.expected {
+	width: 120px;
+	font-size: 12px;
+	color: #555;
+}
+.result {
+	background: {
+		image: image("images/no-image");
+		position: 1em center;
+		repeat: no-repeat;
+		color: transparent;
+	}
+}
+
+//basic
+#basic {
+	background-image: image("images/image");
+}
+#basic-path {
+	background: none;
+	&:after {
+		content: image("images/image", true);
+	}
+}
+#basic-empty {
+	background-image: image();
+}
+#basic-none {
+	background-image: image("images/none");
+}
+#basic-none-ext {
+	background-image: image("images/none.png");
+}
+#basic-png {
+	background-image: image("images/image.png");
+}
+#basic-jpg {
+	background-image: image("images/image.jpg");
+}
+#basic-jpeg {
+	background-image: image("images/image.jpeg");
+}
+#basic-gif {
+	background-image: image("images/image.gif");
+}
+
+// directory
+#dir-common-only {
+	background-image: image("images/common");
+}
+#dir-deployment-only {
+	background-image: image("images/deployment");
+}
+#dir-both-prefer-common {
+	background-image: image("images/image", false, common);
+}
+#dir-common-only-prefer-common {
+	background-image: image("images/common", false, common);
+}
+#dir-deployment-only-prefer-common {
+	background-image: image("images/deployment", false, common);
+}
+#dir-both-prefer-deploy {
+	background-image: image("images/image", false, deployment);
+}
+#dir-common-only-prefer-deploy {
+	background-image: image("images/common", false, deployment);
+}
+#dir-deployment-only-prefer-deploy {
+	background-image: image("images/deployment", false, deployment);
+}
+
+// extension
+#ext-no-ext {
+	background-image: image("images/image");
+}
+#ext-no-png {
+	background-image: image("images/no-png");
+}
+#ext-no-png-jpg {
+	background-image: image("images/no-png-jpg");
+}
+#ext-no-png-jpg-jpeg {
+	background-image: image("images/no-png-jpg-jpeg");
+}
+#ext-no-png-jpg-jpeg-gif {
+	background-image: image("images/no-png-jpg-jpeg-gif");
+}
+
+
+#ext-png-no-png {
+	background-image: image("images/no-png.png");
+}
+#ext-jpg-no-jpg {
+	background-image: image("images/jpg-no-jpg.jpg");
+}
+#ext-jpeg-no-jpeg {
+	background-image: image("images/jpeg-no-jpeg.jpeg");
+}
+#ext-jpg-no-jpg-jpeg {
+	background-image: image("images/jpg-no-jpg-jpeg.jpg");
+}
+#ext-gif-no-gif {
+	background-image: image("images/gif-no-gif.gif");
+}
+
+
+#ext-png-common-jpg-deploy {
+	background-image: image("images/png-common-jpg-deploy");
+}
+#ext-png-png-common-jpg-deploy {
+	background-image: image("images/png-common-jpg-deploy.png");
+}
+#ext-jpg-jpeg-common-png-deploy {
+	background-image: image("images/jpeg-common-png-deploy.jpg");
+}
+#ext-jpeg-png-common-jpg-deploy {
+	background-image: image("images/png-common-jpg-deploy.jpeg", false, common);
+}
