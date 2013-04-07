@@ -39,16 +39,16 @@ end
 module Sass::Script::Functions
 	def deployment
 		brand = options[:custom][:deployment]
-		Sass::Script::String.new("Deployments/#{brand}/Branding")
+		Sass::Script::String.new("Deployments/#{brand}/assets")
 	end
 end
 # does the same as above, but as a variable used below
-deployment_dir = "Deployments/#{sass_options[:custom][:deployment]}/Branding"
+deployment_dir = "Deployments/#{sass_options[:custom][:deployment]}/assets"
 
 # Constants - all controlled by vars above
 http_path = "/"
 css_dir = deployment_dir
-sass_dir = "#{deployment_dir}/SASS"
-add_import_path "Common/Branding/SASS"
+sass_dir = "#{deployment_dir}/sass"
+add_import_path "Common/assets/sass"
 images_dir = ""
 output_style = (environment == :production) ? :compressed : :nested
