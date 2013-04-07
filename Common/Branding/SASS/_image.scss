@@ -58,12 +58,10 @@ $image-directory-preference: deployment !default;
 	$file: null;
 	@if $prefer-common {
 		@if not($common) {
-			@warn "Image tried to 'prefer-common', but could not be found";
 			$prefer-common: false;
 			$prefer-deployment: true;
 		}
 		@else if $target-extension and $common-extension != $target-extension and $deployment-extension == $target-extension {
-			@warn "Image tried to 'prefer-common', but found better extension fit in deployment";
 			$prefer-common: false;
 			$prefer-deployment: true;
 		}
@@ -73,12 +71,10 @@ $image-directory-preference: deployment !default;
 	}
 	@if $prefer-deployment {
 		@if not($deployment) {
-			@warn "Image tried to 'prefer-deployment', but could not be found";
 			$prefer-deployment: false;
 			$prefer-common: true;
 		}
 		@else if $target-extension and $deployment-extension != $target-extension and $common-extension == $target-extension {
-			@warn "Image tried to 'prefer-deployment', but found better extension fit in common";
 			$prefer-deployment: false;
 			$prefer-common: true;
 		}
