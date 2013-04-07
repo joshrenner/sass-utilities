@@ -1,7 +1,7 @@
 # Environment - build for :developemnt or :production
 # environment = :production
 # Options - set deployment here
-sass_options = {:debug_info => true, :custom => { :deployment => "BrandA" } }
+sass_options = {:debug_info => true, :custom => { :deployment => "image" } }
 
 
 
@@ -39,16 +39,16 @@ end
 module Sass::Script::Functions
 	def deployment
 		brand = options[:custom][:deployment]
-		Sass::Script::String.new("Deployments/#{brand}/assets")
+		Sass::Script::String.new("deployments/#{brand}/assets")
 	end
 end
 # does the same as above, but as a variable used below
-deployment_dir = "Deployments/#{sass_options[:custom][:deployment]}/assets"
+deployment_dir = "deployments/#{sass_options[:custom][:deployment]}/assets"
 
 # Constants - all controlled by vars above
 http_path = "/"
 css_dir = deployment_dir
 sass_dir = "#{deployment_dir}/sass"
-add_import_path "Common/assets/sass"
+add_import_path "global/assets/sass"
 images_dir = ""
 output_style = (environment == :production) ? :compressed : :nested

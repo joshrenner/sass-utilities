@@ -18,7 +18,7 @@
 */
 
 // IMAGE - PUBLIC PROPERTIES
-$image-common-directory: "Common/assets" !default;
+$image-common-directory: "global/assets" !default;
 $image-deployment-directory: deployment() !default; 
 $image-extensions: (gif jpeg jpg png) !default;
 $image-directory-preference: deployment !default;
